@@ -1,16 +1,91 @@
 package com.pluralsight;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 public class Transaction {
     /*
     add attributes:
     date, time, description, vendor and amount
 
     add constructors
-
     getters and setters
-
     toString()
-
      */
+    private LocalDate date;
+    private LocalTime time;
+    private LocalDateTime dateTime;
+    private String description;
+    private String vendor;
+    private double amount;
 
+    public Transaction(LocalDate date, LocalTime time, LocalDateTime dateTime, String description, String vendor, double amount) {
+        this.date = date;
+        this.time = time;
+        this.dateTime = dateTime;
+        this.description = description;
+        this.vendor = vendor;
+        this.amount = amount;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "date=" + date +
+                ", time=" + time +
+                ", dateTime=" + dateTime +
+                ", description='" + description + '\'' +
+                ", vendor='" + vendor + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
 }
