@@ -74,6 +74,13 @@ public class FinancialTracker {
         // TODO: create file if it does not exist, then read each line,
         //       parse the five fields, build a Transaction object,
         //       and add it to the transactions list.
+        // add reader & writer (, append  Ture ) to one file " transactions.csv".
+        //String formatting with "\\|": Each transaction should be saved as a single
+        // line with the following format.
+        //date|time|description|vendor|amount
+        //2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
+        //2023-04-15|11:15:00|Invoice 1001 paid|Joe|1500.00
+        // add try/catch
     }
 
     /* ------------------------------------------------------------------
@@ -87,7 +94,12 @@ public class FinancialTracker {
      * Store the amount as-is (positive) and append to the file.
      */
     private static void addDeposit(Scanner scanner) {
-        // TODO
+        // add BufferedWriter (, append  Ture ) to one file " transactions.csv"
+        //  prompt to get amount input, if (amount > 0) else re-enter.
+        //  Use parseDate and parseDouble.
+        //  add try/ catch
+
+
     }
 
     /**
@@ -96,7 +108,11 @@ public class FinancialTracker {
      * then converted to a negative amount before storing.
      */
     private static void addPayment(Scanner scanner) {
-        // TODO
+        // add BufferedWriter (, append  Ture ) to one file " transactions.csv"
+        // prompt to get amount input, if (amount > 0) else re-enter.
+        // Amount *-1 to get negative
+        // Use parseDate and parseDouble.
+        //  add try/ catch
     }
 
     /* ------------------------------------------------------------------
@@ -154,9 +170,13 @@ public class FinancialTracker {
             String input = scanner.nextLine().trim();
 
             switch (input) {
-                case "1" -> {/* TODO – month-to-date report */ }
+                case "1" -> {/* TODO – month-to-date report
+                (the 1st of current LocalDateTime.getMonth  to LocalDateTime.now )
+                */ }
                 case "2" -> {/* TODO – previous month report */ }
-                case "3" -> {/* TODO – year-to-date report   */ }
+                case "3" -> {/* TODO – year-to-date report
+                 (1st of current year LocalDateTime.getYear to LocalDateTime.now)
+                */ }
                 case "4" -> {/* TODO – previous year report  */ }
                 case "5" -> {/* TODO – prompt for vendor then report */ }
                 case "6" -> customSearch(scanner);
