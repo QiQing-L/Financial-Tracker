@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -98,7 +99,6 @@ public class FinancialTracker {
 
                         transactions.add(new Transaction(date, time, description, vendor, amount));
 
-                        //String outPut = String.format("%s|%s|%s|%s|%f.2\n", date,time,description,vendor,amount );
 
 
                     }
@@ -128,47 +128,60 @@ public class FinancialTracker {
         //  prompt to get amount input, if (amount > 0) else re-enter.
         //  Use parseDate and parseDouble.
         //  add try/ catch
-        try{
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
 
+        String date, time, description, vendor;
+        double amount;
+
+        try {
             System.out.println("Please enter information below to log your deposit: ");
             System.out.printf("To log current date and time leave Date and Time flid empty and press enter." +
                     "\nDate (yyyy-MM-dd): ");
-            String date = scanner.nextLine().trim();
+            date = scanner.nextLine().trim();
             System.out.printf("Time (HH:mm:ss): ");
-            String time = scanner.nextLine().trim();
+            time = scanner.nextLine().trim();
             System.out.printf("Description: ");
-            String description = scanner.nextLine().trim();
+            description = scanner.nextLine().trim();
             System.out.printf("Vendor: ");
-            String vendor = scanner.nextLine().trim();
+            vendor = scanner.nextLine().trim();
+
+            //try{
             System.out.printf("Amount: ");
-            double amount = scanner.nextDouble();
+            amount = scanner.nextDouble();
+//            }catch(Exception e1){
+//                System.out.println("Invalid entry. Please enter again with positive numbers.");
+//            }
 
             if (date.equalsIgnoreCase("")){
-                LocalDate currentDate = LocalDate.now();
-                date = currentDate.format(DATE_FMT);
-
+            LocalDate currentDate = LocalDate.now();
+            date = currentDate.format(DATE_FMT);
             }
             if (time.equalsIgnoreCase("")){
-                LocalTime currentTime = LocalTime.now();
-                time = currentTime.format(DATE_FMT);
-
+            LocalTime currentTime = LocalTime.now();
+            time = currentTime.format(DATE_FMT);
             }
 
+            //LocalDateTime dateTime = LocalDateTime.of(date, time);
 
             boolean isDone = false;
 
             while(!isDone){
+                if (amount > 0){
 
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
+
+                    String outPut = String.format("%s|%s|%s|%s|%f.2\n", date,time,description,vendor,amount);
+                    writer.newLine();
+                    writer.write(outPut);
+                    isDone = true;
+
+                }else{
+                    System.out.println("Invalid entry. Please enter again with positive numbers.");
+                }
 
             }
-
-
         } catch (Exception ex) {
             System.err.println("Error. File was unable to read file. " + ex);
         }
-
-
 
     }
 
@@ -285,6 +298,7 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static LocalDate parseDate(String s) {
         /* TODO – return LocalDate or null */
+
         return null;
     }
 
