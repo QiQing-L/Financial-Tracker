@@ -171,13 +171,20 @@ public class FinancialTracker {
 
             switch (input) {
                 case "1" -> {/* TODO – month-to-date report
+                Date validation,
                 (the 1st of current LocalDateTime.getMonth  to LocalDateTime.now )
-                */ }
-                case "2" -> {/* TODO – previous month report */ }
+                get the previous & next day date from a given date, plusDays(n), minusDays(n),
+                can add ".isAfter" or ".is Before" to get comparison for if conditions.
+
+                */
+                }
+                case "2" -> {/* TODO – previous month report
+                plusMonths(n), minusMonths(n), */ }
                 case "3" -> {/* TODO – year-to-date report
                  (1st of current year LocalDateTime.getYear to LocalDateTime.now)
                 */ }
-                case "4" -> {/* TODO – previous year report  */ }
+                case "4" -> {/* TODO – previous year report
+                plusYears(n), minusYears(n)? */ }
                 case "5" -> {/* TODO – prompt for vendor then report */ }
                 case "6" -> customSearch(scanner);
                 case "0" -> running = false;
