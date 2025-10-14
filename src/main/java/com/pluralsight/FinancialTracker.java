@@ -1,6 +1,6 @@
 package com.pluralsight;
 
-import java.io.File;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -81,6 +81,17 @@ public class FinancialTracker {
         //2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
         //2023-04-15|11:15:00|Invoice 1001 paid|Joe|1500.00
         // add try/catch
+
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+
+
+
+        }catch (Exception e){
+            System.err.println("Error, Unable to read file. " + e);
+        }
+
     }
 
     /* ------------------------------------------------------------------
