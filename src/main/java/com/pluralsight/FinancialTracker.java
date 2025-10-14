@@ -13,8 +13,8 @@ import java.util.Scanner;
  * ------------------------------------------------
  * File format  (pipe-delimited)
  *     yyyy-MM-dd|HH:mm:ss|description|vendor|amount
- * A deposit has a positive amount; a payment is stored
- * as a negative amount.
+ * A deposit has a positive amount;
+ * a payment is stored as a negative amount.
  */
 public class FinancialTracker {
 
@@ -43,6 +43,7 @@ public class FinancialTracker {
 
         while (running) {
             System.out.println("Welcome to TransactionApp");
+            System.out.println("=Home Screen=");
             System.out.println("Choose an option:");
             System.out.println("D) Add Deposit");
             System.out.println("P) Make Payment (Debit)");
@@ -101,15 +102,10 @@ public class FinancialTracker {
 
 
                     }
-
 //                    for(Transaction t: transactions){
 //                        System.out.println(t.toString());
 //                    }
-
                     reader.close();
-
-
-
 
             }catch (Exception e){
                 System.err.println("Error, Unable to read file. " + fileName + e);
@@ -132,6 +128,41 @@ public class FinancialTracker {
         //  prompt to get amount input, if (amount > 0) else re-enter.
         //  Use parseDate and parseDouble.
         //  add try/ catch
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
+
+            System.out.println("Please enter information below to log your deposit: ");
+            System.out.printf("To log current date and time leave Date and Time flid empty and press enter." +
+                    "\nDate (yyyy-MM-dd): ");
+            String date = scanner.nextLine().trim();
+            System.out.printf("Time (HH:mm:ss): ");
+            String time = scanner.nextLine().trim();
+            System.out.printf("Description: ");
+            String description = scanner.nextLine().trim();
+            System.out.printf("Vendor: ");
+            String vendor = scanner.nextLine().trim();
+            System.out.printf("Amount: ");
+            double amount = scanner.nextDouble();
+
+            if (date.equalsIgnoreCase("")){
+                LocalDate currentDate = LocalDate.now();
+                date = currentDate.format(DATE_FMT);
+
+            }
+
+
+            boolean isDone = false;
+
+            while(!isDone){
+
+
+            }
+
+
+        } catch (Exception ex) {
+            System.err.println("Error. File was unable to read file. " + ex);
+        }
+
 
 
     }
@@ -147,6 +178,7 @@ public class FinancialTracker {
         // Amount *-1 to get negative
         // Use parseDate and parseDouble.
         //  add try/ catch
+
     }
 
     /* ------------------------------------------------------------------
