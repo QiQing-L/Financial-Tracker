@@ -149,6 +149,11 @@ public class FinancialTracker {
                 date = currentDate.format(DATE_FMT);
 
             }
+            if (time.equalsIgnoreCase("")){
+                LocalTime currentTime = LocalTime.now();
+                time = currentTime.format(DATE_FMT);
+
+            }
 
 
             boolean isDone = false;
