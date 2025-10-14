@@ -99,8 +99,6 @@ public class FinancialTracker {
 
                         transactions.add(new Transaction(date, time, description, vendor, amount));
 
-
-
                     }
 //                    for(Transaction t: transactions){
 //                        System.out.println(t.toString());
@@ -172,6 +170,7 @@ public class FinancialTracker {
                     String outPut = String.format("%s|%s|%s|%s|%f.2\n", date,time,description,vendor,amount);
                     writer.newLine();
                     writer.write(outPut);
+                    System.out.println("Successfully added new deposit: \n" + outPut);
                     isDone = true;
 
                 }else{
