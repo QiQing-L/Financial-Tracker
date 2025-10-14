@@ -86,11 +86,18 @@ public class FinancialTracker {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
 
+            String line;
+            while ((line =reader.readLine()) !=null ){
+                String[] parts = line.split("\\|");
+
+
+            }
+
 
 
 
         }catch (Exception e){
-            System.err.println("Error, Unable to read file. " + e);
+            System.err.println("Error, Unable to read file. " + fileName + e);
         }
 
     }
