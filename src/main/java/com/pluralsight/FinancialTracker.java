@@ -84,7 +84,8 @@ public class FinancialTracker {
 
         try{
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
+
 
 
 
