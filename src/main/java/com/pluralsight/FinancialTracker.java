@@ -167,7 +167,7 @@ public class FinancialTracker {
 
                     BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
 
-                    String outPut = String.format("%s|%s|%s|%s|%f.2\n", date,time,description,vendor,amount);
+                    String outPut = String.format("%s|%s|%s|%s|%.2f\n", date,time,description,vendor,amount);
                     writer.newLine();
                     writer.write(outPut);
                     System.out.println("Successfully added new deposit: \n" + outPut);
