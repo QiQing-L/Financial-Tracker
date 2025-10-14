@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /*
@@ -89,9 +90,20 @@ public class FinancialTracker {
             String line;
             while ((line =reader.readLine()) !=null ){
                 String[] parts = line.split("\\|");
+                LocalDate date = LocalDate.parse(parts[0]);
+                LocalTime time = LocalTime.parse(parts[1]);
+                String description = parts[2];
+                String vendor = parts[3];
+                double amount = Double.parseDouble(parts[4]);
+                Transaction transaction = new Transaction(date, time, description, vendor, amount);
+
+                String outPut = String.format("%s|%s|%s|%s|%f.2\n", date,time,description,vendor,amount );
+
+                writer.write(outPut);
 
 
             }
+            reader.close();
 
 
 
