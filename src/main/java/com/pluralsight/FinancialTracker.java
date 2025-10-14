@@ -71,48 +71,51 @@ public class FinancialTracker {
      * • If the file doesn’t exist, create an empty one so that future writes succeed.
      * • Each line looks like: date|time|description|vendor|amount
      */
-    public static void loadTransactions(String fileName) {
-        // TODO: create file if it does not exist, then read each line,
-        //       parse the five fields, build a Transaction object,
-        //       and add it to the transactions list.
-        // add reader & writer (, append  Ture ) to one file " transactions.csv".
-        //String formatting with "\\|": Each transaction should be saved as a single
-        // line with the following format.
-        //date|time|description|vendor|amount
-        //2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
-        //2023-04-15|11:15:00|Invoice 1001 paid|Joe|1500.00
-        // add try/catch
+        public static void loadTransactions(String fileName) {
+            // TODO: create file if it does not exist, then read each line,
+            //       parse the five fields, build a Transaction object,
+            //       and add it to the transactions list.
+            // add reader to one file " transactions.csv".
+            //String formatting with "\\|": Each transaction should be saved as a single
+            // line with the following format.
+            //date|time|description|vendor|amount
+            //2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
+            //2023-04-15|11:15:00|Invoice 1001 paid|Joe|1500.00
+            // add try/catch
 
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
+            try{
+                    BufferedReader reader = new BufferedReader(new FileReader(fileName));
 
-            String line;
-            while ((line =reader.readLine()) !=null ){
-                String[] parts = line.split("\\|");
-                LocalDate date = LocalDate.parse(parts[0]);
-                LocalTime time = LocalTime.parse(parts[1]);
-                String description = parts[2];
-                String vendor = parts[3];
-                double amount = Double.parseDouble(parts[4]);
-                Transaction transaction = new Transaction(date, time, description, vendor, amount);
+                    String line;
+                    while ((line =reader.readLine()) !=null ){
+                        String[] parts = line.split("\\|");
+                        LocalDate date = LocalDate.parse(parts[0]);
+                        LocalTime time = LocalTime.parse(parts[1]);
+                        String description = parts[2];
+                        String vendor = parts[3];
+                        double amount = Double.parseDouble(parts[4]);
 
-                String outPut = String.format("%s|%s|%s|%s|%f.2\n", date,time,description,vendor,amount );
+                        transactions.add(new Transaction(date, time, description, vendor, amount));
 
-                writer.write(outPut);
+                        //String outPut = String.format("%s|%s|%s|%s|%f.2\n", date,time,description,vendor,amount );
 
 
+                    }
+
+//                    for(Transaction t: transactions){
+//                        System.out.println(t.toString());
+//                    }
+
+                    reader.close();
+
+
+
+
+            }catch (Exception e){
+                System.err.println("Error, Unable to read file. " + fileName + e);
             }
-            reader.close();
 
-
-
-
-        }catch (Exception e){
-            System.err.println("Error, Unable to read file. " + fileName + e);
         }
-
-    }
 
     /* ------------------------------------------------------------------
        Add new transactions
@@ -249,7 +252,11 @@ public class FinancialTracker {
     }
 
     private static Double parseDouble(String s) {
-        /* TODO – return Double   or null */
-        return null;
+        try{
+            return Math.round(Double.parseDouble(s) * 100.0) / 100.0;
+        }
+        catch(Exception e) {
+            return null;
+        }
     }
 }
