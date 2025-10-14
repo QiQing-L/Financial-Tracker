@@ -15,7 +15,6 @@ public class Transaction {
      */
     private LocalDate date;
     private LocalTime time;
-    private LocalDateTime dateTime;
     private String description;
     private String vendor;
     private double amount;
@@ -23,7 +22,6 @@ public class Transaction {
     public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
-        this.dateTime = dateTime;
         this.description = description;
         this.vendor = vendor;
         this.amount = amount;
@@ -45,13 +43,7 @@ public class Transaction {
         this.time = time;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
 
     public String getDescription() {
         return description;
@@ -82,7 +74,6 @@ public class Transaction {
         return "Transaction{" +
                 "date=" + date +
                 ", time=" + time +
-                ", dateTime=" + dateTime +
                 ", description='" + description + '\'' +
                 ", vendor='" + vendor + '\'' +
                 ", amount=" + amount +

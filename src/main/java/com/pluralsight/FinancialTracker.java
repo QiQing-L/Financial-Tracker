@@ -88,6 +88,7 @@ public class FinancialTracker {
             try{
                     BufferedReader reader = new BufferedReader(new FileReader(fileName));
 
+
                     String line;
                     while ((line =reader.readLine()) !=null ){
                         String[] parts = line.split("\\|");
@@ -127,53 +128,59 @@ public class FinancialTracker {
         //  Use parseDate and parseDouble.
         //  add try/ catch
 
-        String date, time, description, vendor;
-        double amount;
+        String date, time, description, vendor, amountS;
+        double amount = 0.0;
 
         try {
-            System.out.println("Please enter information below to log your deposit: ");
-            System.out.printf("To log current date and time leave Date and Time flid empty and press enter." +
-                    "\nDate (yyyy-MM-dd): ");
-            date = scanner.nextLine().trim();
-            System.out.printf("Time (HH:mm:ss): ");
-            time = scanner.nextLine().trim();
-            System.out.printf("Description: ");
-            description = scanner.nextLine().trim();
-            System.out.printf("Vendor: ");
-            vendor = scanner.nextLine().trim();
+            boolean isDone = false;
+            while(!isDone){
+                System.out.println("Please enter information below to log your deposit: ");
+                System.out.print("To log current date and time leave Date and Time flid empty and press enter." +
+                        "\nDate (yyyy-MM-dd): ");
+                date = scanner.nextLine().trim();
+                System.out.print("Time (HH:mm:ss): ");
+                time = scanner.nextLine().trim();
+                System.out.print("Description: ");
+                description = scanner.nextLine().trim();
+                System.out.print("Vendor: ");
+                vendor = scanner.nextLine().trim();
 
-            //try{
-            System.out.printf("Amount: ");
-            amount = scanner.nextDouble();
-//            }catch(Exception e1){
-//                System.out.println("Invalid entry. Please enter again with positive numbers.");
-//            }
+            try{
+                System.out.print("Amount: ");
+                amountS = scanner.nextLine();
+                amount = parseDouble(amountS);
 
-            if (date.equalsIgnoreCase("")){
-            LocalDate currentDate = LocalDate.now();
-            date = currentDate.format(DATE_FMT);
+            }catch(Exception e1){
+                    System.out.println("Invalid entry. Please enter again with positive numbers.");
             }
-            if (time.equalsIgnoreCase("")){
-            LocalTime currentTime = LocalTime.now();
-            time = currentTime.format(DATE_FMT);
-            }
+
+                if (date.equalsIgnoreCase("")){
+                LocalDate currentDate = LocalDate.now();
+                date = currentDate.format(DATE_FMT);
+                }
+                if (time.equalsIgnoreCase("")){
+                LocalTime currentTime = LocalTime.now();
+                time = currentTime.format(TIME_FMT);
+                }
 
             //LocalDateTime dateTime = LocalDateTime.of(date, time);
 
-            boolean isDone = false;
-
-            while(!isDone){
-                if (amount > 0){
+                if (amount > 0 ){
+                    //transactions.add(new Transaction(date, time, description, vendor, amount));
 
                     BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
 
-                    String outPut = String.format("%s|%s|%s|%s|%.2f\n", date,time,description,vendor,amount);
-                    writer.newLine();
+                    String outPut = String.format("%s|%s|%s|%s|%.2f", date,time,description,vendor,amount);
                     writer.write(outPut);
+                    writer.newLine();
+
+
                     System.out.println("Successfully added new deposit: \n" + outPut);
                     isDone = true;
+                    writer.close();
 
-                }else{
+                }
+                else{
                     System.out.println("Invalid entry. Please enter again with positive numbers.");
                 }
 
@@ -228,7 +235,9 @@ public class FinancialTracker {
     /* ------------------------------------------------------------------
        Display helpers: show data in neat columns
        ------------------------------------------------------------------ */
-    private static void displayLedger() { /* TODO – print all transactions in column format */ }
+    private static void displayLedger() { /* TODO – print all transactions in column format */
+
+    }
 
     private static void displayDeposits() { /* TODO – only amount > 0               */ }
 
