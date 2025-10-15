@@ -78,4 +78,7 @@ public class Transaction {
                 ", amount: " + amount +
                 '}';
     }
+    public String toDisplayString(String date,String time) {
+        return String.format("%s|%s|%s|%s|%.2f", date,time,description,vendor,amount);
+    }
 }

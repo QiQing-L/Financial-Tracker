@@ -33,6 +33,8 @@ public class FinancialTracker {
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern(TIME_PATTERN);
     private static final DateTimeFormatter DATETIME_FMT = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
 
+    private static final String firstLine = " Date | Time | Description | Vendor | Amount \n";
+
     /* ------------------------------------------------------------------
        Main menu
        ------------------------------------------------------------------ */
@@ -101,8 +103,8 @@ public class FinancialTracker {
                         transactions.add(new Transaction(date, time, description, vendor, amount));
 
                     }
-
                     reader.close();
+               // this for each loop used for testing transactions arrayList.
                 for(Transaction t: transactions){
                     System.out.println(t.toString());
                 }
@@ -221,7 +223,6 @@ public class FinancialTracker {
         LocalDate enterDate;
         LocalTime enterTime;
 
-
         try {
             boolean isDone = false;
             while(!isDone){
@@ -323,7 +324,13 @@ public class FinancialTracker {
        Display helpers: show data in neat columns
        ------------------------------------------------------------------ */
     private static void displayLedger() { /* TODO – print all transactions in column format */
+        System.out.println(firstLine);
 
+        for(Transaction transaction: transactions){
+            String formattedDate = transaction.getDate().format(DATE_FMT);
+            String formattedTime = transaction.getTime().format(TIME_FMT);
+            System.out.println(transaction.toDisplayString(formattedDate,formattedTime));
+        }
     }
 
     private static void displayDeposits() { /* TODO – only amount > 0               */ }
