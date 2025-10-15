@@ -95,8 +95,8 @@ public class FinancialTracker {
                     String line;
                     while ((line =reader.readLine()) !=null ){
                         String[] parts = line.split("\\|");
-                        LocalDate date = LocalDate.parse(parts[0]);
-                        LocalTime time = LocalTime.parse(parts[1]);
+                        LocalDate date = LocalDate.parse(parts[0],DATE_FMT);
+                        LocalTime time = LocalTime.parse(parts[1],TIME_FMT);
                         String description = parts[2];
                         String vendor = parts[3];
                         double amount = Double.parseDouble(parts[4]);
@@ -330,17 +330,13 @@ public class FinancialTracker {
         System.out.println(firstLine);
 
         try{
+            for(Transaction transaction: transactions){
 
-//            for (int i = transactions.size()-1; i >=0 ; i--) {
-//
-//                    String formattedDate = transactions.get(i).getDate().format(DATE_FMT);
-//                    String formattedTime = transactions.get(i).getTime().format(TIME_FMT);
-//                    System.out.println(transactions.get(i).toDisplayString(formattedDate,formattedTime));
-//            }
-
+                System.out.println(transaction);
+            }
 
         } catch (Exception e) {
-            System.err.println("Error " + e );
+            System.err.println("Error  " + e );
         }
 
     }
@@ -352,9 +348,7 @@ public class FinancialTracker {
             for(Transaction transaction: transactions){
                 double amount = transaction.getAmount();
                 if (amount>0){
-//                    String formattedDate = transaction.getDate().format(DATE_FMT);
-//                    String formattedTime = transaction.getTime().format(TIME_FMT);
-                    //System.out.println(transaction.toDisplayString(formattedDate,formattedTime));
+//
                     System.out.println(transaction);
                 }
             }
