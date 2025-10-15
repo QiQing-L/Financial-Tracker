@@ -39,10 +39,6 @@ public class FinancialTracker {
     public static void main(String[] args) {
         loadTransactions(FILE_NAME);
 
-        for(Transaction t: transactions){
-            System.out.println(t.toString());
-        }
-
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
@@ -107,7 +103,9 @@ public class FinancialTracker {
                     }
 
                     reader.close();
-
+                for(Transaction t: transactions){
+                    System.out.println(t.toString());
+                }
             }catch (Exception e){
                 System.err.println("Error, Unable to read file. " + fileName + e);
             }
@@ -131,42 +129,50 @@ public class FinancialTracker {
         //  add try/ catch
 
         String date, time, description, vendor, amountS;
+        date="";
+        time ="";
         double amount = 0.0;
+        LocalDate enterDate = LocalDate.now();
+        LocalTime enterTime = LocalTime.now();
 
         try {
             boolean isDone = false;
             while(!isDone){
                 System.out.println("Please enter information below to log your deposit: ");
+
                 System.out.print("To log current date and time leave Date and Time flid empty and press enter." +
-                        "\nDate (yyyy-MM-dd): ");
+                    "\nDate (yyyy-MM-dd): ");
                 date = scanner.nextLine().trim();
-                LocalDate enterDate = parseDate(date);
                 System.out.print("Time (HH:mm:ss): ");
                 time = scanner.nextLine().trim();
-                LocalTime enterTime = parseTime(time);
+
+                if (date.equalsIgnoreCase("")){
+                    enterDate = LocalDate.now();
+                    date = enterDate.format(DATE_FMT);
+                }else {enterDate = parseDate(date);
+                    date = enterDate.format(DATE_FMT);
+                }
+                if (time.equalsIgnoreCase("")){
+                    enterTime = LocalTime.now();
+                    time = enterTime.format(TIME_FMT);
+                }else{enterTime = parseTime(time);
+                    time = enterTime.format(TIME_FMT);
+                }
 
                 System.out.print("Description: ");
                 description = scanner.nextLine().trim();
                 System.out.print("Vendor: ");
                 vendor = scanner.nextLine().trim();
+               try{
+                    System.out.print("Amount: ");
+                    amountS = scanner.nextLine();
+                    amount = parseDouble(amountS);
 
-            try{
-                System.out.print("Amount: ");
-                amountS = scanner.nextLine();
-                amount = parseDouble(amountS);
+               }catch(Exception e1){
+                        System.out.println("Invalid entry. Please enter again with positive numbers.");
+               }
 
-            }catch(Exception e1){
-                    System.out.println("Invalid entry. Please enter again with positive numbers.");
-            }
 
-                if (date.equalsIgnoreCase("")){
-                enterDate = LocalDate.now();
-                date = enterDate.format(DATE_FMT);
-                }
-                if (time.equalsIgnoreCase("")){
-                 enterTime = LocalTime.now();
-                time = enterTime.format(TIME_FMT);
-                }
 
             //LocalDateTime dateTime = LocalDateTime.of(date, time);
 
@@ -191,7 +197,9 @@ public class FinancialTracker {
 
             }
         } catch (Exception ex) {
-            System.err.println("Error. File was unable to read file. " + ex);
+            System.err.println("There was a problem processing your file. \n" +
+                    "This often happens if the date or time format is incorrect.\n " +
+                    "Please review your entry and ensure it matches the correct format." + ex);
         }
 
     }
@@ -210,6 +218,9 @@ public class FinancialTracker {
 
         String date, time, description, vendor, amountS;
         double amount = 0.0;
+        LocalDate enterDate;
+        LocalTime enterTime;
+
 
         try {
             boolean isDone = false;
@@ -218,8 +229,22 @@ public class FinancialTracker {
                 System.out.print("To log current date and time leave Date and Time flid empty and press enter." +
                         "\nDate (yyyy-MM-dd): ");
                 date = scanner.nextLine().trim();
+
                 System.out.print("Time (HH:mm:ss): ");
                 time = scanner.nextLine().trim();
+
+                if (date.equalsIgnoreCase("")){
+                    enterDate = LocalDate.now();
+                    date = enterDate.format(DATE_FMT);
+                }else {enterDate = parseDate(date);
+                    date = enterDate.format(DATE_FMT);}
+
+                if (time.equalsIgnoreCase("")){
+                    enterTime = LocalTime.now();
+                    time = enterTime.format(TIME_FMT);
+                }else{enterTime = parseTime(time);
+                    time = enterTime.format(TIME_FMT);}
+
                 System.out.print("Description: ");
                 description = scanner.nextLine().trim();
                 System.out.print("Vendor: ");
@@ -234,21 +259,9 @@ public class FinancialTracker {
                     System.out.println("Invalid entry. Please enter again with positive numbers.");
                 }
 
-                if (date.equalsIgnoreCase("")){
-                    LocalDate currentDate = LocalDate.now();
-                    date = currentDate.format(DATE_FMT);
-                }
-                if (time.equalsIgnoreCase("")){
-                    LocalTime currentTime = LocalTime.now();
-                    time = currentTime.format(TIME_FMT);
-                }
-
                 //LocalDateTime dateTime = LocalDateTime.of(date, time);
 
                 if (amount > 0 ){
-
-                    LocalDate enterDate = parseDate(date);
-                    LocalTime enterTime = parseTime(time);
 
                     transactions.add(new Transaction(enterDate,enterTime, description, vendor, amount));
 
@@ -271,7 +284,9 @@ public class FinancialTracker {
 
             }
         } catch (Exception ex) {
-            System.err.println("Error. File was unable to read file. " + ex);
+            System.err.println("There was a problem processing your file.\n" +
+                    "This often happens if the date or time format is incorrect.\n" +
+                    "Please review your entry and ensure it matches the correct format." + ex);
         }
 
 
