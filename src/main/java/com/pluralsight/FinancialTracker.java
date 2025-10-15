@@ -203,6 +203,71 @@ public class FinancialTracker {
         // Use parseDate and parseDouble.
         //  add try/ catch
 
+        String date, time, description, vendor, amountS;
+        double amount = 0.0;
+
+        try {
+            boolean isDone = false;
+            while(!isDone){
+                System.out.println("Please enter information below to log your payment: ");
+                System.out.print("To log current date and time leave Date and Time flid empty and press enter." +
+                        "\nDate (yyyy-MM-dd): ");
+                date = scanner.nextLine().trim();
+                System.out.print("Time (HH:mm:ss): ");
+                time = scanner.nextLine().trim();
+                System.out.print("Description: ");
+                description = scanner.nextLine().trim();
+                System.out.print("Vendor: ");
+                vendor = scanner.nextLine().trim();
+
+                try{
+                    System.out.print("Amount: ");
+                    amountS = scanner.nextLine();
+                    amount = parseDouble(amountS);
+
+                }catch(Exception e1){
+                    System.out.println("Invalid entry. Please enter again with positive numbers.");
+                }
+
+                if (date.equalsIgnoreCase("")){
+                    LocalDate currentDate = LocalDate.now();
+                    date = currentDate.format(DATE_FMT);
+                }
+                if (time.equalsIgnoreCase("")){
+                    LocalTime currentTime = LocalTime.now();
+                    time = currentTime.format(TIME_FMT);
+                }
+
+                //LocalDateTime dateTime = LocalDateTime.of(date, time);
+
+                if (amount > 0 ){
+                    LocalDate
+
+                    //transactions.add(new Transaction(date, time, description, vendor, amount));
+
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
+                    amount *= -1;
+
+                    String outPut = String.format("%s|%s|%s|%s|%.2f", date,time,description,vendor,amount);
+                    writer.write(outPut);
+                    writer.newLine();
+
+
+                    System.out.println("Successfully added new payment: \n" + outPut);
+                    isDone = true;
+                    writer.close();
+
+                }
+                else{
+                    System.out.println("Invalid entry. Please enter again with positive numbers.");
+                }
+
+            }
+        } catch (Exception ex) {
+            System.err.println("Error. File was unable to read file. " + ex);
+        }
+
+
     }
 
     /* ------------------------------------------------------------------
@@ -312,6 +377,7 @@ public class FinancialTracker {
 
     private static Double parseDouble(String s) {
         try{
+            //need to fix: do not need the round math
             return Math.round(Double.parseDouble(s) * 100.0) / 100.0;
         }
         catch(Exception e) {
