@@ -39,6 +39,10 @@ public class FinancialTracker {
     public static void main(String[] args) {
         loadTransactions(FILE_NAME);
 
+        for(Transaction t: transactions){
+            System.out.println(t.toString());
+        }
+
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
@@ -101,9 +105,7 @@ public class FinancialTracker {
                         transactions.add(new Transaction(date, time, description, vendor, amount));
 
                     }
-//                    for(Transaction t: transactions){
-//                        System.out.println(t.toString());
-//                    }
+
                     reader.close();
 
             }catch (Exception e){
@@ -138,8 +140,11 @@ public class FinancialTracker {
                 System.out.print("To log current date and time leave Date and Time flid empty and press enter." +
                         "\nDate (yyyy-MM-dd): ");
                 date = scanner.nextLine().trim();
+                LocalDate enterDate = parseDate(date);
                 System.out.print("Time (HH:mm:ss): ");
                 time = scanner.nextLine().trim();
+                LocalTime enterTime = parseTime(time);
+
                 System.out.print("Description: ");
                 description = scanner.nextLine().trim();
                 System.out.print("Vendor: ");
@@ -155,21 +160,18 @@ public class FinancialTracker {
             }
 
                 if (date.equalsIgnoreCase("")){
-                LocalDate currentDate = LocalDate.now();
-                date = currentDate.format(DATE_FMT);
+                enterDate = LocalDate.now();
+                date = enterDate.format(DATE_FMT);
                 }
                 if (time.equalsIgnoreCase("")){
-                LocalTime currentTime = LocalTime.now();
-                time = currentTime.format(TIME_FMT);
+                 enterTime = LocalTime.now();
+                time = enterTime.format(TIME_FMT);
                 }
 
             //LocalDateTime dateTime = LocalDateTime.of(date, time);
 
                 if (amount > 0 ){
-                    LocalDate enterDate = parseDate(date);
-                    LocalTime enterTime = parseTime(time);
                     transactions.add(new Transaction(enterDate,enterTime, description, vendor, amount));
-
 
                     BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
 
