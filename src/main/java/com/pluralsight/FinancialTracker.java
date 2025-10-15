@@ -34,7 +34,7 @@ public class FinancialTracker {
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern(TIME_PATTERN);
     private static final DateTimeFormatter DATETIME_FMT = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
 
-    private static final String firstLine = " Date | Time | Description | Vendor | Amount \n";
+    private static final String firstLine = String.format("%s%6s|%s%4s|%s|%s|%s\n","Date","","Time","", "Description", "Vendor", "Amount" );
 
     /* ------------------------------------------------------------------
        Main menu
@@ -107,7 +107,7 @@ public class FinancialTracker {
                     reader.close();
                // this for each loop used for testing transactions arrayList.
                 for(Transaction t: transactions){
-                    System.out.println(t.toString());
+                    System.out.println(t);
                 }
             }catch (Exception e){
                 System.err.println("Error, Unable to read file. " + fileName + e);
@@ -334,9 +334,8 @@ public class FinancialTracker {
 
                 System.out.println(transaction);
             }
-
         } catch (Exception e) {
-            System.err.println("Error  " + e );
+            System.err.println("Error displaying list. " + e );
         }
 
     }
@@ -348,18 +347,33 @@ public class FinancialTracker {
             for(Transaction transaction: transactions){
                 double amount = transaction.getAmount();
                 if (amount>0){
-//
+
                     System.out.println(transaction);
                 }
             }
         }catch(Exception e){
-            System.err.println("Error with displaying list.");
+            System.err.println("Error displaying list." + e);
         }
 
 
     }
 
-    private static void displayPayments() { /* TODO – only amount < 0               */ }
+    private static void displayPayments() { /* TODO – only amount < 0               */
+        System.out.println(firstLine);
+
+        try{
+            for(Transaction transaction: transactions){
+                double amount = transaction.getAmount();
+                if (amount < 0){
+
+                    System.out.println(transaction);
+                }
+            }
+        }catch(Exception e){
+            System.err.println("Error displaying list." + e);
+        }
+
+    }
 
     /* ------------------------------------------------------------------
        Reports menu
