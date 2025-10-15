@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -325,6 +326,12 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static void displayLedger() { /* TODO – print all transactions in column format */
         System.out.println(firstLine);
+        Collections.reverseOrder();
+
+//        for (int i = 0; i < transactions.size(); i++) {
+//
+//
+//        }
 
         for(Transaction transaction: transactions){
             String formattedDate = transaction.getDate().format(DATE_FMT);
@@ -333,7 +340,20 @@ public class FinancialTracker {
         }
     }
 
-    private static void displayDeposits() { /* TODO – only amount > 0               */ }
+    private static void displayDeposits() { /* TODO – only amount > 0  */
+        System.out.println(firstLine);
+
+        for(Transaction transaction: transactions){
+            double amount = transaction.getAmount();
+            if (amount>0){
+                String formattedDate = transaction.getDate().format(DATE_FMT);
+                String formattedTime = transaction.getTime().format(TIME_FMT);
+                System.out.println(transaction.toDisplayString(formattedDate,formattedTime));
+            }
+
+        }
+
+    }
 
     private static void displayPayments() { /* TODO – only amount < 0               */ }
 
