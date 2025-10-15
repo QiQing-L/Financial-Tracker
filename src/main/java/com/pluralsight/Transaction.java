@@ -3,6 +3,7 @@ package com.pluralsight;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Transaction {
     /*
@@ -70,15 +71,13 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction{" +
-                "date: " + date +
-                ", time: " + time +
-                ", description: '" + description + '\'' +
-                ", vendor: '" + vendor + '\'' +
-                ", amount: " + amount +
-                '}';
+
+        String DATE_PATTERN = "yyyy-MM-dd";
+        String TIME_PATTERN = "HH:mm:ss";
+
+         DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern(DATE_PATTERN);
+         DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern(TIME_PATTERN);
+        return String.format("%s|%s|%s|%s|%.2f", date.format(DATE_FMT),time.format(TIME_FMT),description,vendor,amount);
     }
-    public String toDisplayString(String date,String time) {
-        return String.format("%s|%s|%s|%s|%.2f", date,time,description,vendor,amount);
-    }
+
 }

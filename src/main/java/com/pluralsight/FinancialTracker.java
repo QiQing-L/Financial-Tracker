@@ -310,6 +310,8 @@ public class FinancialTracker {
 
             String input = scanner.nextLine().trim();
 
+            //can add sort here
+
             switch (input.toUpperCase()) {
                 case "A" -> displayLedger();
                 case "D" -> displayDeposits();
@@ -326,32 +328,40 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static void displayLedger() { /* TODO – print all transactions in column format */
         System.out.println(firstLine);
-        Collections.reverseOrder();
 
-//        for (int i = 0; i < transactions.size(); i++) {
-//
-//
-//        }
+        try{
 
-        for(Transaction transaction: transactions){
-            String formattedDate = transaction.getDate().format(DATE_FMT);
-            String formattedTime = transaction.getTime().format(TIME_FMT);
-            System.out.println(transaction.toDisplayString(formattedDate,formattedTime));
+//            for (int i = transactions.size()-1; i >=0 ; i--) {
+//
+//                    String formattedDate = transactions.get(i).getDate().format(DATE_FMT);
+//                    String formattedTime = transactions.get(i).getTime().format(TIME_FMT);
+//                    System.out.println(transactions.get(i).toDisplayString(formattedDate,formattedTime));
+//            }
+
+
+        } catch (Exception e) {
+            System.err.println("Error " + e );
         }
+
     }
 
     private static void displayDeposits() { /* TODO – only amount > 0  */
         System.out.println(firstLine);
 
-        for(Transaction transaction: transactions){
-            double amount = transaction.getAmount();
-            if (amount>0){
-                String formattedDate = transaction.getDate().format(DATE_FMT);
-                String formattedTime = transaction.getTime().format(TIME_FMT);
-                System.out.println(transaction.toDisplayString(formattedDate,formattedTime));
+        try{
+            for(Transaction transaction: transactions){
+                double amount = transaction.getAmount();
+                if (amount>0){
+//                    String formattedDate = transaction.getDate().format(DATE_FMT);
+//                    String formattedTime = transaction.getTime().format(TIME_FMT);
+                    //System.out.println(transaction.toDisplayString(formattedDate,formattedTime));
+                    System.out.println(transaction);
+                }
             }
-
+        }catch(Exception e){
+            System.err.println("Error with displaying list.");
         }
+
 
     }
 
