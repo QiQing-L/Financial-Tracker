@@ -166,7 +166,10 @@ public class FinancialTracker {
             //LocalDateTime dateTime = LocalDateTime.of(date, time);
 
                 if (amount > 0 ){
-                    //transactions.add(new Transaction(date, time, description, vendor, amount));
+                    LocalDate enterDate = parseDate(date);
+                    LocalTime enterTime = parseTime(time);
+                    transactions.add(new Transaction(enterDate,enterTime, description, vendor, amount));
+
 
                     BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
 
@@ -174,9 +177,9 @@ public class FinancialTracker {
                     writer.write(outPut);
                     writer.newLine();
 
-
                     System.out.println("Successfully added new deposit: \n" + outPut);
                     isDone = true;
+
                     writer.close();
 
                 }
@@ -241,9 +244,11 @@ public class FinancialTracker {
                 //LocalDateTime dateTime = LocalDateTime.of(date, time);
 
                 if (amount > 0 ){
-                    LocalDate
 
-                    //transactions.add(new Transaction(date, time, description, vendor, amount));
+                    LocalDate enterDate = parseDate(date);
+                    LocalTime enterTime = parseTime(time);
+
+                    transactions.add(new Transaction(enterDate,enterTime, description, vendor, amount));
 
                     BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
                     amount *= -1;
@@ -371,10 +376,22 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static LocalDate parseDate(String s) {
         /* TODO – return LocalDate or null */
+        try{
+            return LocalDate.parse(s, DATE_FMT);
+        }catch(Exception e){
+            return null;
+        }
 
-        return null;
     }
+    private static LocalTime parseTime(String s) {
+        /* TODO – return LocalDate or null */
+        try{
+            return LocalTime.parse(s, TIME_FMT);
+        }catch(Exception e){
+            return null;
+        }
 
+    }
     private static Double parseDouble(String s) {
         try{
             //need to fix: do not need the round math
