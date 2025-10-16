@@ -386,8 +386,6 @@ public class FinancialTracker {
         LocalDate toDate = LocalDate.now();
         LocalDate startAfterDate, endBeforeDate;
 
-        int dayRange = 0;
-
         while (running) {
             System.out.println("Reports");
             System.out.println("Choose an option:");
@@ -415,6 +413,7 @@ public class FinancialTracker {
 
                     //print dates for testing:
                     printDateForTest(startAfterDate,endBeforeDate);
+                    System.out.println("Month To Date Report:");
 
                     filterTransactionsByDate(startAfterDate, endBeforeDate);
 
@@ -426,6 +425,7 @@ public class FinancialTracker {
 
                     //print dates for testing:
                     printDateForTest(startAfterDate,endBeforeDate);
+                    System.out.println("Previous Month Report:");
 
                     filterTransactionsByDate(startAfterDate, endBeforeDate);
                 }
@@ -438,6 +438,7 @@ public class FinancialTracker {
                     //print dates for testing:
                     printDateForTest(startAfterDate,endBeforeDate);
 
+                    System.out.println("Year To Date Report:");
                     filterTransactionsByDate(startAfterDate, endBeforeDate);
 
                 }
@@ -446,10 +447,10 @@ public class FinancialTracker {
                     startAfterDate = toDate.minusYears(1).minusDays(toDate.getDayOfYear());
                     endBeforeDate = toDate.minusDays(toDate.getDayOfYear()-1);
 
-
                     //print dates for testing:
                     printDateForTest(startAfterDate,endBeforeDate);
 
+                    System.out.println("Previous Year Report:");
                     filterTransactionsByDate(startAfterDate, endBeforeDate);
                 }
                 case "5" -> {/* TODO – prompt for vendor then report */
@@ -470,6 +471,11 @@ public class FinancialTracker {
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
         // TODO – iterate transactions, print those within the range
         try{
+            LocalDate startDate = start.plusDays(1);
+            LocalDate endDate = end.minusDays(1);
+            System.out.println("start date: " + startDate);
+            System.out.println("end date: " + endDate);
+
             System.out.println(firstLine);
             for(Transaction transaction: transactions){
                 LocalDate date = transaction.getDate();
@@ -479,7 +485,7 @@ public class FinancialTracker {
                 }
             }
         }catch(Exception e){
-            System.err.println("Error displaying list." + e);
+            System.err.println("Error displaying report." + e);
         }
 
 
