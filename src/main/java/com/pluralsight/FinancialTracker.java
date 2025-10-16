@@ -429,10 +429,9 @@ public class FinancialTracker {
        Reporting helpers
        ------------------------------------------------------------------ */
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
-        // TODO – iterate transactions, print those within the range
+
         try {
-//            LocalDate startDate = start.plusDays(1);
-//            LocalDate endDate = end.minusDays(1);
+//
             System.out.println("start date: " + start);
             System.out.println("end date: " + end);
 
@@ -505,9 +504,13 @@ public class FinancialTracker {
 
     }
 
+    /**
+     *Parses a string to a Double, rounding to the nearest two decimal places.
+     * @param s The string input.
+     * @return The rounded number, or null if parsing fails.
+     */
     private static Double parseDouble(String s) {
         try {
-            //need to fix: do not need the round math
             return Math.round(Double.parseDouble(s) * 100.0) / 100.0;
         } catch (Exception e) {
             return null;
