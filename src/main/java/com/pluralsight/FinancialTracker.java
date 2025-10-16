@@ -384,7 +384,8 @@ public class FinancialTracker {
     private static void reportsMenu(Scanner scanner) {
         boolean running = true;
         LocalDate toDate = LocalDate.now();
-        LocalDate endDate, startDate;
+        LocalDate startAfterDate, endBeforeDate;
+
         int dayRange = 0;
 
         while (running) {
@@ -409,26 +410,24 @@ public class FinancialTracker {
                 can add ".isAfter" or ".is Before" to get comparison for if conditions.
                 */
 
-                    startDate = toDate.minusDays(toDate.getDayOfMonth());
-                    endDate = toDate.plusDays(1);
+                    startAfterDate = toDate.minusDays(toDate.getDayOfMonth());
+                    endBeforeDate = toDate.plusDays(1);
 
                     //print dates for testing:
-//                    System.out.println("Starts after: "+startDate);
-//                    System.out.println("Ends before: "+ endDate);
+                    printDateForTest(startAfterDate,endBeforeDate);
 
-                    filterTransactionsByDate(startDate, endDate);
+                    filterTransactionsByDate(startAfterDate, endBeforeDate);
 
                 }
                 case "2" -> {/* TODO – previous month report
                 plusMonths(n), minusMonths(n), */
-                    startDate = toDate.minusMonths(1).minusDays(toDate.getDayOfMonth());
-                    endDate = toDate.minusDays(toDate.getDayOfMonth()-1);
+                    startAfterDate = toDate.minusMonths(1).minusDays(toDate.getDayOfMonth());
+                    endBeforeDate = toDate.minusDays(toDate.getDayOfMonth()-1);
 
                     //print dates for testing:
-                    System.out.println("Starts after: "+startDate);
-                    System.out.println("Ends before: "+ endDate);
+                    printDateForTest(startAfterDate,endBeforeDate);
 
-                    filterTransactionsByDate(startDate, endDate);
+                    filterTransactionsByDate(startAfterDate, endBeforeDate);
                 }
                 case "3" -> {/* TODO – year-to-date report
                  (1st of current year LocalDateTime.getYear to LocalDateTime.now)
@@ -519,5 +518,16 @@ public class FinancialTracker {
         catch(Exception e) {
             return null;
         }
+    }
+
+    /** this method is to print and validate dates logic used for testing */
+    private static void printDateForTest(LocalDate startAfterDate,LocalDate endBeforeDate){
+
+        LocalDate startDate = startAfterDate.plusDays(1);
+        LocalDate endDate = endBeforeDate.minusDays(1);
+        System.out.println("Starts after: "+startAfterDate );
+        System.out.println("Ends before: "+ endBeforeDate );
+        System.out.println("start date: " + startDate);
+        System.out.println("end date: " + endDate);
     }
 }
