@@ -444,11 +444,10 @@ public class FinancialTracker {
                 }
                 case "4" -> {/* TODO – previous year report
                 plusYears(n), minusYears(n)? */
-                    startAfterDate = toDate.minusYears(1).minusDays(toDate.getDayOfYear());
+                    LocalDate previousYearDate = toDate.minusYears(1);
+                    startAfterDate = previousYearDate.minusDays(previousYearDate.getDayOfYear());
                     endBeforeDate = toDate.minusDays(toDate.getDayOfYear()-1);
 
-                    //print dates for testing:
-                    printDateForTest(startAfterDate,endBeforeDate);
 
                     System.out.println("Previous Year Report:");
                     filterTransactionsByDate(startAfterDate, endBeforeDate);
@@ -495,17 +494,21 @@ public class FinancialTracker {
         // TODO – iterate transactions, print those with matching vendor
         try{
             System.out.println(firstLine);
+            boolean found = false;
+
             for(Transaction transaction: transactions){
-                String theVendor = transaction.getVendor();
-                int num = 0;
+            String theVendor = transaction.getVendor();
+
                 if (theVendor.equalsIgnoreCase(vendor)){
-                    num +=1;
                     System.out.println(transaction);
+                    found = true;
                 }
-                if(num==0){
-                    System.out.println("Did not find any transaction under vendor: " + vendor);
-                }
+
+            }if(!found){
+                System.out.println("Did not find any transaction under vendor: " + vendor);
             }
+
+
         }catch(Exception e){
             System.err.println("Error displaying list." + e);
         }
