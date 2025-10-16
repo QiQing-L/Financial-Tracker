@@ -5,10 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 /*
  * Capstone skeleton – personal finance tracker.
@@ -34,7 +31,7 @@ public class FinancialTracker {
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern(TIME_PATTERN);
     private static final DateTimeFormatter DATETIME_FMT = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
 
-    private static final String firstLine = String.format("%s%6s|%s%4s|%s|%s|%s\n","Date","","Time","", "Description", "Vendor", "Amount" );
+    private static final String firstLine = String.format("%s%6s|%s%4s|%s|%s|%s","Date","","Time","", "Description", "Vendor", "Amount" );
 
     /* ------------------------------------------------------------------
        Main menu
@@ -298,6 +295,11 @@ public class FinancialTracker {
        Ledger menu
        ------------------------------------------------------------------ */
     private static void ledgerMenu(Scanner scanner) {
+        transactions.sort(Comparator
+                .comparing(Transaction::getDate, Comparator.reverseOrder())
+                .thenComparing(Transaction::getTime, Comparator.reverseOrder()));
+        //transactions.sort(Comparator.comparing(Transaction ::getDate));
+
         boolean running = true;
         while (running) {
             System.out.println("Ledger");
@@ -311,6 +313,7 @@ public class FinancialTracker {
             String input = scanner.nextLine().trim();
 
             //can add sort here
+
 
             switch (input.toUpperCase()) {
                 case "A" -> displayLedger();
@@ -409,20 +412,25 @@ public class FinancialTracker {
                     startDate = toDate.minusDays(toDate.getDayOfMonth());
                     endDate = toDate.plusDays(1);
 
-                    System.out.println(endDate);
-                    System.out.println(startDate);
+//                    System.out.println(endDate);
+//                    System.out.println(startDate);
 
-
+                    filterTransactionsByDate(startDate, endDate);
 
                 }
                 case "2" -> {/* TODO – previous month report
+
                 plusMonths(n), minusMonths(n), */ }
                 case "3" -> {/* TODO – year-to-date report
                  (1st of current year LocalDateTime.getYear to LocalDateTime.now)
                 */ }
                 case "4" -> {/* TODO – previous year report
                 plusYears(n), minusYears(n)? */ }
-                case "5" -> {/* TODO – prompt for vendor then report */ }
+                case "5" -> {/* TODO – prompt for vendor then report */
+                    System.out.print("Please enter the vendor: ");
+                    input = scanner.nextLine().trim();
+                    filterTransactionsByVendor(input);
+                }
                 case "6" -> customSearch(scanner);
                 case "0" -> running = false;
                 default -> System.out.println("Invalid option");
@@ -436,6 +444,7 @@ public class FinancialTracker {
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
         // TODO – iterate transactions, print those within the range
         try{
+            System.out.println(firstLine);
             for(Transaction transaction: transactions){
                 LocalDate date = transaction.getDate();
                 if (date.isAfter(start) && date.isBefore(end)){
@@ -452,11 +461,24 @@ public class FinancialTracker {
 
     private static void filterTransactionsByVendor(String vendor) {
         // TODO – iterate transactions, print those with matching vendor
+        try{
+            System.out.println(firstLine);
+            for(Transaction transaction: transactions){
+                String theVendor = transaction.getVendor();
+                if ( theVendor.equalsIgnoreCase(vendor)){
+
+                    System.out.println(transaction);
+                }
+            }
+        }catch(Exception e){
+            System.err.println("Error displaying list." + e);
+        }
     }
 
     private static void customSearch(Scanner scanner) {
         // TODO – prompt for any combination of date range, description,
         //        vendor, and exact amount, then display matches
+
     }
 
     /* ------------------------------------------------------------------
