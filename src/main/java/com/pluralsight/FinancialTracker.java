@@ -431,9 +431,27 @@ public class FinancialTracker {
                 }
                 case "3" -> {/* TODO – year-to-date report
                  (1st of current year LocalDateTime.getYear to LocalDateTime.now)
-                */ }
+                */
+                    startAfterDate = toDate.minusDays(toDate.getDayOfYear());
+                    endBeforeDate = toDate.plusDays(1);
+
+                    //print dates for testing:
+                    printDateForTest(startAfterDate,endBeforeDate);
+
+                    filterTransactionsByDate(startAfterDate, endBeforeDate);
+
+                }
                 case "4" -> {/* TODO – previous year report
-                plusYears(n), minusYears(n)? */ }
+                plusYears(n), minusYears(n)? */
+                    startAfterDate = toDate.minusYears(1).minusDays(toDate.getDayOfYear());
+                    endBeforeDate = toDate.minusDays(toDate.getDayOfYear()-1);
+
+
+                    //print dates for testing:
+                    printDateForTest(startAfterDate,endBeforeDate);
+
+                    filterTransactionsByDate(startAfterDate, endBeforeDate);
+                }
                 case "5" -> {/* TODO – prompt for vendor then report */
                     System.out.print("Please enter the vendor: ");
                     input = scanner.nextLine().trim();
@@ -473,9 +491,13 @@ public class FinancialTracker {
             System.out.println(firstLine);
             for(Transaction transaction: transactions){
                 String theVendor = transaction.getVendor();
-                if ( theVendor.equalsIgnoreCase(vendor)){
-
+                int num = 0;
+                if (theVendor.equalsIgnoreCase(vendor)){
+                    num +=1;
                     System.out.println(transaction);
+                }
+                if(num==0){
+                    System.out.println("Did not find any transaction under vendor: " + vendor);
                 }
             }
         }catch(Exception e){
