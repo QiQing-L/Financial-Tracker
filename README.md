@@ -32,8 +32,9 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 ## Technologies Used
 
-- Java: Mention the version you are using.
-- Any additional libraries or frameworks used in the project.
+- Java: JDK corretto-17 Amazon Corretto 17.0.16
+  Build system: Maven
+- IntelliJ IDEA 2025.2.1 (Community Edition)
 
 ## Demo
 
@@ -57,12 +58,13 @@ List resources such as tutorials, articles, or documentation that helped you dur
 
 ## Team Members
 
-- **Name 1** - Specific contributions or roles.
-- **Name 2** - Specific contributions or roles.
+- **Qi Qing Lin** 
+
 
 ## Thanks
 
-Express gratitude towards those who provided help, guidance, or resources:
+- I would like to sincerely thank my instructor Raymon Maroun for providing the project skeleton code and for 
+their continuous guidance and support throughout the development process.
 
-- Thank you to [Mentor's Name] for continuous support and guidance.
-- A special thanks to all teammates for their dedication and teamwork.
+- also wish to acknowledge my peers — Roger Su, Mohammad Hussain, Andy Wu, Monalisa Stimphil, and Stephen Anku — 
+for their brief but helpful assistance during the project.

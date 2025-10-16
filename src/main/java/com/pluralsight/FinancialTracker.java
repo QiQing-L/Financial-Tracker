@@ -44,7 +44,7 @@ public class FinancialTracker {
 
         while (running) {
             System.out.println("Welcome to TransactionApp");
-            System.out.println("=Home Screen=");
+            System.out.println("=== Home Screen ====");
             System.out.println("Choose an option:");
             System.out.println("D) Add Deposit");
             System.out.println("P) Make Payment (Debit)");
@@ -77,16 +77,24 @@ public class FinancialTracker {
             // TODO: create file if it does not exist, then read each line,
             //       parse the five fields, build a Transaction object,
             //       and add it to the transactions list.
-            // add reader to one file " transactions.csv".
-            //String formatting with "\\|": Each transaction should be saved as a single
-            // line with the following format.
-            //date|time|description|vendor|amount
-            //2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
-            //2023-04-15|11:15:00|Invoice 1001 paid|Joe|1500.00
-            // add try/catch
+            File file = new File(FILE_NAME);
+            try{
+                if(!file.exists()){
+                    file.createNewFile();
+                    System.out.println("File created: " +FILE_NAME);
+                }else {
+                    System.out.println("Found file " + FILE_NAME
+                            + ", all your transactions will be added and saved in " +FILE_NAME);
+                }
+
+            }catch (Exception e){
+                System.err.println("Error creating file." + e);
+            }
+
 
             try{
                     BufferedReader reader = new BufferedReader(new FileReader(fileName));
+
 
 
                     String line;
