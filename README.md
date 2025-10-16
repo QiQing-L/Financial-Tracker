@@ -1,16 +1,40 @@
-# Project Title
+# Financial Tracker 
 
 ## Description of the Project
 
-Briefly describe what this Java console application does. Mention its purpose and who the intended users are. Explain the main functionality and what problems it aims to solve.
+This Java CLI application lets users track all financial transactions for personal or business use. 
+Transactions are stored in a single file (transactions.csv) and include date, time, description, vendor, and amount.
+
+Users can add deposits or make payments while choosing to manually enter the date and time or automatically use the current timestamp. 
+The ledger screen displays transactions newest first and allows filtering by deposits, payments, or running pre-defined and custom reports (e.g., month-to-date, previous year, or by vendor).
+
+Designed for anyone who wants a simple, reliable way to manage financial records without complex accounting software.
+
 
 ## User Stories
 
 List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
 
-- As a user, I want to be able to input my data, so that the application can process it accordingly.
-- As a user, I want to receive immediate feedback, so I can understand what to do next.
+- As a user, I want to have access to the home screen until I choose to exit the application,
+so that I can continue using the application for multiple tasks without restarting it each time.
 
+- As a user, I want all entries to show the newest entries (date & time) first in the ledger,
+so that I can view transactions in order.
+
+- As a user, I want all transactions in the application to be read from and saved to a file named "transactions.csv",
+so that I can view and maintain a complete transaction history in one place.
+
+- As a user, I want to be able to add new deposit information and save it to the CSV file,
+so that I can keep a record of all my deposit transactions.
+
+- As a user, I want to be able to add payment (debit) information and save it to the CSV file,
+so that I can keep a record of all my payment transactions.
+
+- As a user, I want to be able to view reports with custom searches on my transactions,
+so that I can easily find my transaction activity based on specific time periods or vendors.
+
+- As a user, I want to have options on the Ledger screen to view all my transactions in different ways,
+so that I can easily review my transactions by category, date range, or vendor.
 ## Setup
 
 Instructions on how to set up and run the project using IntelliJ IDEA.
@@ -53,8 +77,11 @@ Outline potential future enhancements or functionalities you might consider addi
 
 List resources such as tutorials, articles, or documentation that helped you during the project.
 
-- [Java Programming Tutorial](https://www.example.com)
-- [Effective Java](https://www.example.com)
+- [Java date](https://beginnersbook.com/2013/05/java-date/)
+- [How to Sort List by Date in Java 8 Article](https://javatechonline.com/how-to-sort-list-by-date-in-java-8/)
+- [File exists() method in Java with examples](https://www.geeksforgeeks.org/java/file-exists-method-in-java-with-examples/)
+- [Create File if not exists in Java ](https://www.w3docs.com/snippets/java/java-fileoutputstream-create-file-if-not-exists.html#:~:text=To%20create%20a%20file%20using,file%20file%2Dio%20new%2Doperator)
+- [Get First Date of Current Month in Java](https://www.baeldung.com/java-current-month-start-date)
 
 ## Team Members
 
