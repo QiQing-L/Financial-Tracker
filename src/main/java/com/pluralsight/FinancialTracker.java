@@ -296,9 +296,9 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static void ledgerMenu(Scanner scanner) {
         transactions.sort(Comparator
-                .comparing(Transaction::getDate, Comparator.reverseOrder())
-                .thenComparing(Transaction::getTime));
-        //transactions.sort(Comparator.comparing(Transaction ::getDate));
+                .comparing(Transaction::getDate)
+                .thenComparing(Transaction::getTime).reversed());
+        //transactions.sort(Comparator.comparing(Transaction ::getDate, Comparator.reverseOrder()));
 
         boolean running = true;
         while (running) {
