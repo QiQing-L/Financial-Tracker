@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+
 import java.util.*;
 
 public class FinancialTracker {
@@ -72,7 +74,7 @@ public class FinancialTracker {
                 System.out.println("File created: " + fileName);
             } else {
                 System.out.println("Found file " + fileName
-                        + ", all your transactions will be added and saved in " + fileName);
+                        + ", all your transactions will be added and saved in " + fileName + ".");
             }
 
         } catch (Exception e) {
@@ -359,8 +361,8 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static void reportsMenu(Scanner scanner) {
         boolean running = true;
-        LocalDate toDate = LocalDate.now();
-        LocalDate startAfterDate, endBeforeDate;
+        LocalDate currentDate = LocalDate.now();
+        LocalDate startDate, endDate;
 
         while (running) {
             System.out.println("Reports");
@@ -377,40 +379,41 @@ public class FinancialTracker {
 
 
             switch (input) {
-                case "1" -> {/* TODO – month-to-date report */
-
-                    startAfterDate = toDate.minusDays(toDate.getDayOfMonth());
-                    endBeforeDate = toDate.plusDays(1);
-
+                case "1" -> {
                     System.out.println("Month To Date Report:");
-                    filterTransactionsByDate(startAfterDate, endBeforeDate);
+                    startDate = currentDate.withDayOfMonth(1);
+                    endDate = currentDate;
+
+                    filterTransactionsByDate(startDate, endDate);
 
                 }
-                case "2" -> {/* TODO – previous month report */
-                    startAfterDate = toDate.minusMonths(1).minusDays(toDate.getDayOfMonth());
-                    endBeforeDate = toDate.minusDays(toDate.getDayOfMonth() - 1);
-
+                case "2" -> {
                     System.out.println("Previous Month Report:");
-                    filterTransactionsByDate(startAfterDate, endBeforeDate);
-                }
-                case "3" -> {/* TODO – year-to-date report*/
-                    startAfterDate = toDate.minusDays(toDate.getDayOfYear());
-                    endBeforeDate = toDate.plusDays(1);
+                    LocalDate previousMonthDate = currentDate.minusMonths(1);
 
+                    startDate = previousMonthDate.withDayOfMonth(1);
+                    endDate = previousMonthDate.with(TemporalAdjusters.lastDayOfMonth());
+
+                    filterTransactionsByDate(startDate, endDate);
+                }
+                case "3" -> {
                     System.out.println("Year To Date Report:");
-                    filterTransactionsByDate(startAfterDate, endBeforeDate);
+                    startDate = currentDate.withDayOfYear(1);
+                    endDate = currentDate;
+
+                    filterTransactionsByDate(startDate, endDate);
 
                 }
-                case "4" -> {/* TODO – previous year report */
-                    LocalDate previousYearDate = toDate.minusYears(1);
-
-                    startAfterDate = previousYearDate.minusDays(previousYearDate.getDayOfYear());
-                    endBeforeDate = toDate.minusDays(toDate.getDayOfYear() - 1);
-
+                case "4" -> {
                     System.out.println("Previous Year Report:");
-                    filterTransactionsByDate(startAfterDate, endBeforeDate);
+                    LocalDate previousYearDate = currentDate.minusYears(1);
+
+                    startDate = previousYearDate.withDayOfYear(1);
+                    endDate = previousYearDate.with(TemporalAdjusters.lastDayOfYear());
+
+                    filterTransactionsByDate(startDate, endDate);
                 }
-                case "5" -> {/* TODO – prompt for vendor then report */
+                case "5" -> {
                     System.out.print("Please enter the vendor: ");
                     input = scanner.nextLine().trim();
                     filterTransactionsByVendor(input);
@@ -428,15 +431,15 @@ public class FinancialTracker {
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
         // TODO – iterate transactions, print those within the range
         try {
-            LocalDate startDate = start.plusDays(1);
-            LocalDate endDate = end.minusDays(1);
-            System.out.println("start date: " + startDate);
-            System.out.println("end date: " + endDate);
+//            LocalDate startDate = start.plusDays(1);
+//            LocalDate endDate = end.minusDays(1);
+            System.out.println("start date: " + start);
+            System.out.println("end date: " + end);
 
             System.out.println(firstLine);
             for (Transaction transaction : transactions) {
                 LocalDate date = transaction.getDate();
-                if (date.isAfter(start) && date.isBefore(end)) {
+                if ((date.isAfter(start)|| date.isEqual(start)) && (date.isBefore(end)|| date.isEqual(end))) {
 
                     System.out.println(transaction);
                 }
@@ -511,16 +514,4 @@ public class FinancialTracker {
         }
     }
 
-    /**
-     * this method is to print and validate dates logic used for testing, Will Be REMOVED after testing completed
-     */
-    private static void printDateForTest(LocalDate startAfterDate, LocalDate endBeforeDate) {
-
-        LocalDate startDate = startAfterDate.plusDays(1);
-        LocalDate endDate = endBeforeDate.minusDays(1);
-        System.out.println("Starts after: " + startAfterDate);
-        System.out.println("Ends before: " + endBeforeDate);
-        System.out.println("start date: " + startDate);
-        System.out.println("end date: " + endDate);
-    }
 }
