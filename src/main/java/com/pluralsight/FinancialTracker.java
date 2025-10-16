@@ -412,15 +412,23 @@ public class FinancialTracker {
                     startDate = toDate.minusDays(toDate.getDayOfMonth());
                     endDate = toDate.plusDays(1);
 
-//                    System.out.println(endDate);
-//                    System.out.println(startDate);
+                    //print dates for testing:
+//                    System.out.println("Starts after: "+startDate);
+//                    System.out.println("Ends before: "+ endDate);
 
                     filterTransactionsByDate(startDate, endDate);
 
                 }
                 case "2" -> {/* TODO – previous month report
+                plusMonths(n), minusMonths(n), */
+                    startDate = toDate.minusMonths(toDate.getDayOfMonth());
+                    endDate = toDate.minusDays(toDate.getDayOfMonth()-1);
 
-                plusMonths(n), minusMonths(n), */ }
+                    System.out.println("Starts after: "+startDate);
+                    System.out.println("Ends before: "+ endDate);
+
+                    filterTransactionsByDate(startDate, endDate);
+                }
                 case "3" -> {/* TODO – year-to-date report
                  (1st of current year LocalDateTime.getYear to LocalDateTime.now)
                 */ }
