@@ -421,9 +421,10 @@ public class FinancialTracker {
                 }
                 case "2" -> {/* TODO – previous month report
                 plusMonths(n), minusMonths(n), */
-                    startDate = toDate.minusMonths(toDate.getDayOfMonth());
+                    startDate = toDate.minusMonths(1).minusDays(toDate.getDayOfMonth());
                     endDate = toDate.minusDays(toDate.getDayOfMonth()-1);
 
+                    //print dates for testing:
                     System.out.println("Starts after: "+startDate);
                     System.out.println("Ends before: "+ endDate);
 
