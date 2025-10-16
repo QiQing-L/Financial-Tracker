@@ -380,6 +380,10 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static void reportsMenu(Scanner scanner) {
         boolean running = true;
+        LocalDate toDate = LocalDate.now();
+        LocalDate endDate, startDate;
+        int dayRange = 0;
+
         while (running) {
             System.out.println("Reports");
             System.out.println("Choose an option:");
@@ -393,14 +397,23 @@ public class FinancialTracker {
 
             String input = scanner.nextLine().trim();
 
+
             switch (input) {
                 case "1" -> {/* TODO – month-to-date report
                 Date validation,
                 (the 1st of current LocalDateTime.getMonth  to LocalDateTime.now )
                 get the previous & next day date from a given date, plusDays(n), minusDays(n),
                 can add ".isAfter" or ".is Before" to get comparison for if conditions.
-
                 */
+
+                    startDate = toDate.minusDays(toDate.getDayOfMonth());
+                    endDate = toDate.plusDays(1);
+
+                    System.out.println(endDate);
+                    System.out.println(startDate);
+
+
+
                 }
                 case "2" -> {/* TODO – previous month report
                 plusMonths(n), minusMonths(n), */ }
@@ -422,6 +435,19 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
         // TODO – iterate transactions, print those within the range
+        try{
+            for(Transaction transaction: transactions){
+                LocalDate date = transaction.getDate();
+                if (date.isAfter(start) && date.isBefore(end)){
+
+                    System.out.println(transaction);
+                }
+            }
+        }catch(Exception e){
+            System.err.println("Error displaying list." + e);
+        }
+
+
     }
 
     private static void filterTransactionsByVendor(String vendor) {

@@ -75,9 +75,11 @@ public class Transaction {
         String DATE_PATTERN = "yyyy-MM-dd";
         String TIME_PATTERN = "HH:mm:ss";
 
-         DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern(DATE_PATTERN);
-         DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern(TIME_PATTERN);
+        DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern(DATE_PATTERN);
+        DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern(TIME_PATTERN);
         return String.format("%s|%s|%s|%s|%.2f", date.format(DATE_FMT),time.format(TIME_FMT),description,vendor,amount);
     }
+
+
 
 }
