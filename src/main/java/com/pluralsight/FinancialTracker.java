@@ -298,7 +298,7 @@ public class FinancialTracker {
         transactions.sort(Comparator
                 .comparing(Transaction::getDate)
                 .thenComparing(Transaction::getTime).reversed());
-        //transactions.sort(Comparator.comparing(Transaction ::getDate, Comparator.reverseOrder()));
+        //transactions.sort(Comparator.comparing(Transaction ::getDate));
 
         boolean running = true;
         while (running) {
