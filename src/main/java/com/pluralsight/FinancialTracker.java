@@ -14,6 +14,7 @@ public class FinancialTracker {
     /* ------------------------------------------------------------------
        Shared data and formatters
        ------------------------------------------------------------------ */
+
     private static final ArrayList<Transaction> transactions = new ArrayList<>();
     private static final String FILE_NAME = "transactions.csv";
 
@@ -26,6 +27,14 @@ public class FinancialTracker {
     private static final DateTimeFormatter DATETIME_FMT = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
 
     private static final String firstLine = String.format("%-10s|%-8s|%20s|%20s|%s", "Date", "Time", "Description", "Vendor", "Amount");
+/* ------------------------------------------------------------------
+    text colors
+    ------------------------------------------------------------------ */
+    private static final String RESET  = "\u001B[0m";
+    private static final String RED    = "\u001B[31m";
+    private static final String GREEN  = "\u001B[32m";
+    private static final String YELLOW = "\u001B[33m";
+    private static final String BLUE   = "\u001B[34m";
 
     /* ------------------------------------------------------------------
        Main menu
@@ -524,8 +533,8 @@ public class FinancialTracker {
             if (parseReturnDT != null ){
                 return parseReturnDT;
             }else {
-                System.err.println("Invalid entry. " +
-                        "Please review your Date and Time entry and ensure it matches the correct format.");
+                System.out.println(RED + "Invalid entry. " +
+                        "Please review your Date and Time entry and ensure it matches the correct format."+ RESET);
             }
 
         }
