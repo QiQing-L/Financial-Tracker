@@ -88,6 +88,7 @@ List resources such as tutorials, articles, or documentation that helped you dur
 - [Create File if not exists in Java ](https://www.w3docs.com/snippets/java/java-fileoutputstream-create-file-if-not-exists.html#:~:text=To%20create%20a%20file%20using,file%20file%2Dio%20new%2Doperator)
 - [Get First Date of Current Month in Java](https://www.baeldung.com/java-current-month-start-date)
 - [Class LocalDate Methods](https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html)
+- [potato-sensei](https://chatgpt.com/g/g-681d378b0c90819197b16e49abe384ec-potato-sensei)
 
 ## Team Members
 
