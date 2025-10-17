@@ -25,7 +25,7 @@ public class FinancialTracker {
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern(TIME_PATTERN);
     private static final DateTimeFormatter DATETIME_FMT = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
 
-    private static final String firstLine = String.format("%s%6s|%s%4s|%s|%s|%s", "Date", "", "Time", "", "Description", "Vendor", "Amount");
+    private static final String firstLine = String.format("%-10s|%-8s|%20s|%20s|%s", "Date", "Time", "Description", "Vendor", "Amount");
 
     /* ------------------------------------------------------------------
        Main menu
@@ -115,37 +115,33 @@ public class FinancialTracker {
      */
     private static void addDeposit(Scanner scanner) {
 
-        String date, time, description, vendor, amountS;
-        date = "";
-        time = "";
+        String date, time, description, vendor, amountS, dateAndTime;
         double amount = 0.0;
-        LocalDate enterDate = LocalDate.now();
-        LocalTime enterTime = LocalTime.now();
+        LocalDate enterDate;
+        LocalTime enterTime;
+        LocalDateTime dateTime;
 
         try {
             boolean isDone = false;
             while (!isDone) {
                 System.out.println("Please enter information below to log your deposit: ");
 
-                System.out.print("To log current date and time leave Date and Time flid empty and press enter." +
-                        "\nDate (yyyy-MM-dd): ");
-                date = scanner.nextLine().trim();
-                System.out.print("Time (HH:mm:ss): ");
-                time = scanner.nextLine().trim();
+                System.out.print("To log the current date and time, leave Date and Time field empty and press enter." +
+                        "\nDate and Time 'yyyy-MM-dd HH:mm:ss': ");
+                dateAndTime = scanner.nextLine().trim();
+                if (dateAndTime.equalsIgnoreCase("")) {
+                    dateTime = LocalDateTime.now();
+                    enterDate = dateTime.toLocalDate();
+                    enterTime = dateTime.toLocalTime();
+                    date = enterDate.format(DATE_FMT);
+                    time = enterTime.format(TIME_FMT);
+                } else {
+                    dateTime = LocalDateTime.parse(dateAndTime,DATETIME_FMT);
+                    enterDate = dateTime.toLocalDate();
+                    enterTime = dateTime.toLocalTime();
+                    date = enterDate.format(DATE_FMT);
+                    time = enterTime.format(TIME_FMT);
 
-                if (date.equalsIgnoreCase("")) {
-                    enterDate = LocalDate.now();
-                    date = enterDate.format(DATE_FMT);
-                } else {
-                    enterDate = parseDate(date);
-                    date = enterDate.format(DATE_FMT);
-                }
-                if (time.equalsIgnoreCase("")) {
-                    enterTime = LocalTime.now();
-                    time = enterTime.format(TIME_FMT);
-                } else {
-                    enterTime = parseTime(time);
-                    time = enterTime.format(TIME_FMT);
                 }
 
                 System.out.print("Description: ");
@@ -197,36 +193,33 @@ public class FinancialTracker {
      */
     private static void addPayment(Scanner scanner) {
 
-        String date, time, description, vendor, amountS;
+        String date, time, description, vendor, amountS, dateAndTime;
         double amount = 0.0;
         LocalDate enterDate;
         LocalTime enterTime;
+        LocalDateTime dateTime;
 
         try {
             boolean isDone = false;
             while (!isDone) {
                 System.out.println("Please enter information below to log your payment: ");
-                System.out.print("To log current date and time leave Date and Time flid empty and press enter." +
-                        "\nDate (yyyy-MM-dd): ");
-                date = scanner.nextLine().trim();
 
-                System.out.print("Time (HH:mm:ss): ");
-                time = scanner.nextLine().trim();
-
-                if (date.equalsIgnoreCase("")) {
-                    enterDate = LocalDate.now();
+                System.out.print("To log the current date and time, leave Date and Time field empty and press enter." +
+                        "\nDate and Time 'yyyy-MM-dd HH:mm:ss': ");
+                dateAndTime = scanner.nextLine().trim();
+                if (dateAndTime.equalsIgnoreCase("")) {
+                    dateTime = LocalDateTime.now();
+                    enterDate = dateTime.toLocalDate();
+                    enterTime = dateTime.toLocalTime();
                     date = enterDate.format(DATE_FMT);
-                } else {
-                    enterDate = parseDate(date);
-                    date = enterDate.format(DATE_FMT);
-                }
-
-                if (time.equalsIgnoreCase("")) {
-                    enterTime = LocalTime.now();
                     time = enterTime.format(TIME_FMT);
                 } else {
-                    enterTime = parseTime(time);
+                    dateTime = parseDateTime(dateAndTime);
+                    enterDate = dateTime.toLocalDate();
+                    enterTime = dateTime.toLocalTime();
+                    date = enterDate.format(DATE_FMT);
                     time = enterTime.format(TIME_FMT);
+
                 }
 
                 System.out.print("Description: ");
@@ -243,14 +236,12 @@ public class FinancialTracker {
                     System.out.println("Invalid entry. Please enter again with positive numbers.");
                 }
 
-                //LocalDateTime dateTime = LocalDateTime.of(date, time);
 
                 if (amount > 0) {
-
+                    amount *= -1;
                     transactions.add(new Transaction(enterDate, enterTime, description, vendor, amount));
 
                     BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
-                    amount *= -1;
 
                     String outPut = String.format("%s|%s|%s|%s|%.2f", date, time, description, vendor, amount);
                     writer.write(outPut);
@@ -278,6 +269,7 @@ public class FinancialTracker {
        Ledger menu
        ------------------------------------------------------------------ */
     private static void ledgerMenu(Scanner scanner) {
+        // Sort newest to oldest: date first, then time
         transactions.sort(Comparator.comparing(Transaction::getDate)
                 .thenComparing(Transaction::getTime).reversed());
 
@@ -447,7 +439,6 @@ public class FinancialTracker {
             System.err.println("Error displaying report." + e);
         }
 
-
     }
 
     private static void filterTransactionsByVendor(String vendor) {
@@ -498,6 +489,16 @@ public class FinancialTracker {
         /* TODO – return LocalDate or null */
         try {
             return LocalTime.parse(s, TIME_FMT);
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    private static LocalDateTime parseDateTime(String s) {
+        /* TODO – return LocalDate or null */
+        try {
+            return LocalDateTime.parse(s, DATETIME_FMT);
         } catch (Exception e) {
             return null;
         }

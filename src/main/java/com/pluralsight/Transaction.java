@@ -77,7 +77,7 @@ public class Transaction {
 
         DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern(DATE_PATTERN);
         DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern(TIME_PATTERN);
-        return String.format("%s|%s|%s|%s|%.2f", date.format(DATE_FMT),time.format(TIME_FMT),description,vendor,amount);
+        return String.format("%s|%s|%-25s|%-20s|%.2f", date.format(DATE_FMT),time.format(TIME_FMT),description,vendor,amount);
     }
 
 
