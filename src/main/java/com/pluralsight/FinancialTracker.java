@@ -27,15 +27,15 @@ public class FinancialTracker {
     private static final DateTimeFormatter DATETIME_FMT = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
 
     private static final String firstLine = String.format("%-10s|%-8s|%-30s|%-20s|%s\n", "Date", "Time", "Description", "Vendor", "Amount");
-/* ------------------------------------------------------------------
-    text colors
-   ------------------------------------------------------------------ */
-    private static final String RESET  = "\u001B[0m";
-    private static final String RED    = "\u001B[31m";
-    private static final String GREEN  = "\u001B[32m";
+    /* ------------------------------------------------------------------
+        text colors
+       ------------------------------------------------------------------ */
+    private static final String RESET = "\u001B[0m";
+    private static final String RED = "\u001B[31m";
+    private static final String GREEN = "\u001B[32m";
     private static final String YELLOW = "\u001B[93m";
-    private static final String BLUE   = "\u001B[34m";
-    private static final String BLUE2  = "\u001B[94m";
+    private static final String BLUE = "\u001B[34m";
+    private static final String BLUE2 = "\u001B[94m";
 
     /* ------------------------------------------------------------------
        Main menu
@@ -52,8 +52,8 @@ public class FinancialTracker {
             System.out.println(GREEN + "=== Home Screen ====" + RESET);
             System.out.println(GREEN + "Choose an option:" + RESET);
             System.out.println(GREEN + "D) Add Deposit" + RESET);
-            System.out.println(GREEN + "P) Make Payment (Debit)"  + RESET);
-            System.out.println(GREEN + "L) Ledger"  + RESET);
+            System.out.println(GREEN + "P) Make Payment (Debit)" + RESET);
+            System.out.println(GREEN + "L) Ledger" + RESET);
             System.out.println(RED + "X) Exit" + RESET);
 
             String input = scanner.nextLine().trim();
@@ -75,6 +75,7 @@ public class FinancialTracker {
 
     /**
      * Create file if it does not exist, read file and added transactions to transactions list.
+     *
      * @param fileName is set to "transactions.csv".
      */
     public static void loadTransactions(String fileName) {
@@ -89,7 +90,7 @@ public class FinancialTracker {
             }
 
         } catch (Exception e) {
-            System.out.println(RED + "Error creating file." + e  + RESET);
+            System.out.println(RED + "Error creating file." + e + RESET);
         }
         /// read file and added transaction to transactions list
         try {
@@ -120,6 +121,7 @@ public class FinancialTracker {
 
     /**
      * prompt user for deposit details, add and save deposit to list and to file.
+     *
      * @param scanner Use for prompting user input for transaction details.
      */
     private static void addDeposit(Scanner scanner) {
@@ -173,7 +175,7 @@ public class FinancialTracker {
 
                     writer.close();
                 } else {
-                    System.out.println(RED + "Invalid entry. Please enter again with positive numbers."+ RESET);
+                    System.out.println(RED + "Invalid entry. Please enter again with positive numbers." + RESET);
                 }
 
             }
@@ -187,6 +189,7 @@ public class FinancialTracker {
 
     /**
      * prompt user for debit details, add and save debit to list and to file.
+     *
      * @param scanner Use for prompting user input for transaction details.
      */
     private static void addPayment(Scanner scanner) {
@@ -223,7 +226,7 @@ public class FinancialTracker {
                     amount = parseDouble(amountS);
 
                 } catch (Exception e1) {
-                    System.out.println(RED + "Invalid entry. Please enter again with positive numbers."+ RESET);
+                    System.out.println(RED + "Invalid entry. Please enter again with positive numbers." + RESET);
                 }
 
                 /// if entered amount is positive, change amount to negative =, then add debit to list and append to file.
@@ -291,7 +294,7 @@ public class FinancialTracker {
        Display helpers: show data in neat columns
        ------------------------------------------------------------------ */
     private static void displayLedger() {
-        System.out.println(BLUE2 + " All Transactions: " +RESET);
+        System.out.println(BLUE2 + " All Transactions: " + RESET);
         System.out.println(firstLine);
 
         ///print all transactions in column format
@@ -300,13 +303,13 @@ public class FinancialTracker {
                 System.out.println(transaction);
             }
         } catch (Exception e) {
-            System.out.println(RED+ "Error displaying list. " + e + RESET);
+            System.out.println(RED + "Error displaying list. " + e + RESET);
         }
 
     }
 
     private static void displayDeposits() {
-        System.out.println(BLUE2 + " All Deposits: " +RESET);
+        System.out.println(BLUE2 + " All Deposits: " + RESET);
         System.out.println(firstLine);
 
         ///print all deposits in column format
@@ -325,7 +328,7 @@ public class FinancialTracker {
     }
 
     private static void displayPayments() {
-        System.out.println(BLUE2 + " All Payments: " +RESET);
+        System.out.println(BLUE2 + " All Payments: " + RESET);
         System.out.println(firstLine);
 
         ///print all payments in column format.
@@ -418,8 +421,9 @@ public class FinancialTracker {
 
     /**
      * Filter Transactions by dates.
+     *
      * @param start a predefined start date based on the current date.
-     * @param end a predefined start date based on the current date.
+     * @param end   a predefined start date based on the current date.
      */
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
 
@@ -430,7 +434,7 @@ public class FinancialTracker {
             System.out.println(firstLine);
             for (Transaction transaction : transactions) {
                 LocalDate date = transaction.getDate();
-                if ((date.isAfter(start)|| date.isEqual(start)) && (date.isBefore(end)|| date.isEqual(end))) {
+                if ((date.isAfter(start) || date.isEqual(start)) && (date.isBefore(end) || date.isEqual(end))) {
 
                     System.out.println(transaction);
                 }
@@ -443,6 +447,7 @@ public class FinancialTracker {
 
     /**
      * Iterate transactions, print transactions with matching vendor.
+     *
      * @param vendor string input from user.
      */
     private static void filterTransactionsByVendor(String vendor) {
@@ -471,8 +476,8 @@ public class FinancialTracker {
     private static void customSearch(Scanner scanner) {
         // TODO – prompt for any combination of date range, description,
         //        vendor, and exact amount, then display matches
-        System.out.println(YELLOW + "This feature is still underdevelopment. " +RESET);
-        System.out.println(YELLOW + "Returning to the Reports screen..." +RESET);
+        System.out.println(YELLOW + "This feature is still underdevelopment. " + RESET);
+        System.out.println(YELLOW + "Returning to the Reports screen..." + RESET);
 
     }
 
@@ -482,6 +487,7 @@ public class FinancialTracker {
 
     /**
      * pares LocalDate String
+     *
      * @param s user date input in string
      * @return LocalDate or null
      */
@@ -493,8 +499,10 @@ public class FinancialTracker {
         }
 
     }
+
     /**
      * pares LocalTime String
+     *
      * @param s user time input in string
      * @return LocalTime or null
      */
@@ -509,6 +517,7 @@ public class FinancialTracker {
 
     /**
      * pares one Date+Time String
+     *
      * @param s one user date and time input in string
      * @return LocalDateTime or null
      */
@@ -522,7 +531,8 @@ public class FinancialTracker {
     }
 
     /**
-     *Parses a string to a Double, rounding to the nearest two decimal places.
+     * Parses a string to a Double, rounding to the nearest two decimal places.
+     *
      * @param s The string input.
      * @return The rounded number, or null if parsing fails.
      */
@@ -537,10 +547,11 @@ public class FinancialTracker {
     /**
      * Prompt user for a date and time String input and return with a pares LocalDateTime.
      * Loops for re-enter if string input unable to parse into LocalDAteTime.
+     *
      * @param scanner used for user input
      * @return current time or a pares LocalDateTime
      */
-    private static LocalDateTime promptUserDateTime (Scanner scanner) {
+    private static LocalDateTime promptUserDateTime(Scanner scanner) {
 
         while (true) {
             System.out.print("To log the current date and time, leave Date and Time field empty and press enter." +
@@ -552,11 +563,11 @@ public class FinancialTracker {
 
             }
             LocalDateTime parseReturnDT = parseDateTime(dateAndTime);
-            if (parseReturnDT != null ){
+            if (parseReturnDT != null) {
                 return parseReturnDT;
-            }else {
+            } else {
                 System.out.println(RED + "Invalid entry. " +
-                        "Please review your Date and Time entry and ensure it matches the correct format."+ RESET);
+                        "Please review your Date and Time entry and ensure it matches the correct format." + RESET);
             }
 
         }

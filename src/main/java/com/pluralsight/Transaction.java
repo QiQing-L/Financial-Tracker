@@ -37,7 +37,6 @@ public class Transaction {
     }
 
 
-
     public String getDescription() {
         return description;
     }
@@ -74,8 +73,8 @@ public class Transaction {
         DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern(DATE_PATTERN);
         DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern(TIME_PATTERN);
 
-        return String.format("%s|%s|%-30s|%-20s|%.2f", date.format(DATE_FMT),time.format(TIME_FMT),
-                descriptionTruncate,vendorTruncate,amount);
+        return String.format("%s|%s|%-30s|%-20s|%.2f", date.format(DATE_FMT), time.format(TIME_FMT),
+                descriptionTruncate, vendorTruncate, amount);
     }
 
 
