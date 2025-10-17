@@ -75,8 +75,12 @@ Include screenshots or GIFs that show your application in action.
 
 Outline potential future enhancements or functionalities you might consider adding:
 
-- Additional feature to be developed.
-- Improvement of current functionalities.
+- Additional feature to be developed:
+  - confirming with user of new entry before store and save the transaction to the file.
+  - custom search
+  
+- Improvement of current functionalities:
+  - better error message display flow.
 
 ## Resources
 
