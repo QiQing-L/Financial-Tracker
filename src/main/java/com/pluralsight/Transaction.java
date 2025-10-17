@@ -1,18 +1,11 @@
 package com.pluralsight;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Transaction {
-    /*
-    add attributes:
-    date, time, description, vendor and amount
-    add constructors
-    getters and setters
-    toString()
-     */
+
     private LocalDate date;
     private LocalTime time;
     private String description;
@@ -71,15 +64,19 @@ public class Transaction {
 
     @Override
     public String toString() {
+        ///truncate the string to fit the width without messing up the column alignment.
+        String descriptionTruncate = description.length() > 30 ? description.substring(0, 27) + "..." : description;
+        String vendorTruncate = vendor.length() > 20 ? vendor.substring(0, 17) + "..." : vendor;
 
         String DATE_PATTERN = "yyyy-MM-dd";
         String TIME_PATTERN = "HH:mm:ss";
 
         DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern(DATE_PATTERN);
         DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern(TIME_PATTERN);
-        return String.format("%s|%s|%-25s|%-20s|%.2f", date.format(DATE_FMT),time.format(TIME_FMT),description,vendor,amount);
-    }
 
+        return String.format("%s|%s|%-30s|%-20s|%.2f", date.format(DATE_FMT),time.format(TIME_FMT),
+                descriptionTruncate,vendorTruncate,amount);
+    }
 
 
 }
