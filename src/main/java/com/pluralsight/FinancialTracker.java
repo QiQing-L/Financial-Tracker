@@ -37,6 +37,7 @@ public class FinancialTracker {
         boolean running = true;
 
         while (running) {
+
             System.out.println("Welcome to TransactionApp");
             System.out.println("=== Home Screen ====");
             System.out.println("Choose an option:");
@@ -204,23 +205,13 @@ public class FinancialTracker {
             while (!isDone) {
                 System.out.println("Please enter information below to log your payment: ");
 
-                System.out.print("To log the current date and time, leave Date and Time field empty and press enter." +
-                        "\nDate and Time 'yyyy-MM-dd HH:mm:ss': ");
-                dateAndTime = scanner.nextLine().trim();
-                if (dateAndTime.equalsIgnoreCase("")) {
-                    dateTime = LocalDateTime.now();
-                    enterDate = dateTime.toLocalDate();
-                    enterTime = dateTime.toLocalTime();
-                    date = enterDate.format(DATE_FMT);
-                    time = enterTime.format(TIME_FMT);
-                } else {
-                    dateTime = parseDateTime(dateAndTime);
-                    enterDate = dateTime.toLocalDate();
-                    enterTime = dateTime.toLocalTime();
-                    date = enterDate.format(DATE_FMT);
-                    time = enterTime.format(TIME_FMT);
+                dateTime = promptUserDateTime(scanner);
 
-                }
+                enterDate = dateTime.toLocalDate();
+                enterTime = dateTime.toLocalTime();
+                date = enterDate.format(DATE_FMT);
+                time = enterTime.format(TIME_FMT);
+
 
                 System.out.print("Description: ");
                 description = scanner.nextLine().trim();
@@ -517,5 +508,29 @@ public class FinancialTracker {
             return null;
         }
     }
+
+    private static LocalDateTime promptUserDateTime (Scanner scanner) {
+
+        while (true) {
+            System.out.print("To log the current date and time, leave Date and Time field empty and press enter." +
+                    "\nDate and Time 'yyyy-MM-dd HH:mm:ss': ");
+            String dateAndTime = scanner.nextLine().trim();
+
+            if (dateAndTime.equalsIgnoreCase("")) {
+                return LocalDateTime.now();
+
+            }
+            LocalDateTime parseReturnDT = parseDateTime(dateAndTime);
+            if (parseReturnDT != null ){
+                return parseReturnDT;
+            }else {
+                System.err.println("Invalid entry. " +
+                        "Please review your Date and Time entry and ensure it matches the correct format.");
+            }
+
+        }
+
+    }
+
 
 }
